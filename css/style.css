@@ -1,4 +1,6 @@
-/* ---------- LOAD GEO SANS LIGHT ---------- */
+/* -----------------------------------
+   1) LOAD GEO SANS LIGHT
+   ----------------------------------- */
 @font-face {
   font-family: 'GeoSans Light';
   src: url('../fonts/GeosansLight.woff2') format('woff2');
@@ -9,7 +11,7 @@
 /* ----------------------------------------- */
 
 /* =======================================================
-   1) RESET & BASIC BODY STYLES
+   2) RESET & BASIC BODY STYLES
    ======================================================= */
 * {
   margin: 0;
@@ -23,276 +25,97 @@ html, body {
 }
 
 body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
+  font-family: 'GeoSans Light', sans-serif;
   background-color: #fff;
   color: #333;
 }
 
 /* =======================================================
-   2) HERO SECTION AS TWO-COLUMN GRID
+   3) SIMPLE HERO (INDEX PAGE)
    ======================================================= */
-/* 
-   We make .hero a grid with two columns:
-   - 1st column is fixed 480px (logo + text)
-   - 2nd column flexes from 480px → right edge (carousel)
-*/
+.hero-simple {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #5A3E92; /* purple background */
+  height: 100vh;            /* fill full viewport height */
+  text-align: center;
+  padding: 20px;
+}
+
+.hero-center {
+  max-width: 480px; /* prevents text from stretching too wide */
+  width: 100%;
+}
+
+/* Logo styling */
+.hero-logo {
+  display: block;
+  margin: 0 auto -30px;
+  width: 200px; /* adjust as needed */
+  height: auto;
+}
+
+/* Wordmark (main heading) */
+.hero-wordmark {
+  font-size: 6rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+/* Subtitle (app description) */
+.hero-subtitle {
+  font-size: 2.5rem;
+  color: #ddd;
+  margin-bottom: 1.5rem;
+}
+
+/* App Store badge */
+.app-store-badge {
+  display: inline-block;
+  width: 180px; /* adjust as needed */
+  height: auto;
+  margin-top: 10px;
+}
+
+/* =======================================================
+   4) TWO‐COLUMN HERO (PRIVACY PAGE)
+   ======================================================= */
 .hero {
   display: grid;
-  grid-template-columns: 680px 1fr;
+  /* Left column up to 680px, but will shrink on narrow screens */
+  grid-template-columns: minmax(0, 480px) 1fr;
   min-height: 100vh;
-  background-color: #5A3E92;
+  background-color: #5A3E92; /* purple background behind left column */
   color: white;
   align-items: center;
 }
 
-/* ---------- LEFT COLUMN: logo + text ---------- */
+/* ---------- LEFT COLUMN (for privacy) ---------- */
 .hero-text {
   padding: 20px;
   text-align: center;
-  font-family: 'GeoSans Light', sans-serif;
 }
 
-.hero-logo {
-  display: block;
-  margin: 0 auto -30px;
-  width: 150px;   /* adjust to taste */
-  height: auto;
+.hero-text .hero-logo {
+  margin-bottom: 20px;
 }
 
 .hero-text h1 {
   font-size: 4rem;
   margin-bottom: 0.5rem;
   margin-top: 0;
+  color: #fff;
 }
 
-.hero-text p {
-  font-size: 1.5rem;
+.subheading {
+  font-size: 1rem;
+  color: #ddd;
+  margin-top: 0.25rem;
   margin-bottom: 1.5rem;
 }
 
-.app-store-badge {
-  display: block;
-  width: 180px;
-  height: auto;
-  margin: 0 auto;
-}
-
-/* =======================================================
-   3) RIGHT COLUMN: FULL-WIDTH CAROUSEL
-   ======================================================= */
-.hero-carousel {
-  position: relative;
-  width: 100%; /* fills from x=480px → viewport’s right */
-  height: 100%;
-  padding-right: 1000px;
-}
-
-/* ← Left arrow button (flush against left edge of column 2, i.e. at x=480px) */
-.carousel-arrow--left {
-  position: absolute;
-  top: 50%;
-  left: -25px;
-  transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.8);
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 1.5rem;
-  color: #5A3E92;
-  cursor: pointer;
-  z-index: 2;
-  transition: background-color 0.2s ease;
-}
-
-.carousel-arrow--left:hover {
-  background-color: rgba(255, 255, 255, 1);
-}
-
-/* → Right arrow button (flush to viewport’s right edge) */
-.carousel-arrow--right {
-  position: absolute;
-  top: 50%;
-  right: 15px;
-  transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.8);
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 1.5rem;
-  color: #5A3E92;
-  cursor: pointer;
-  z-index: 2;
-  transition: background-color 0.2s ease;
-}
-
-.carousel-arrow--right:hover {
-  background-color: rgba(255, 255, 255, 1);
-}
-
-/* -------------------------------------------------------
-   .carousel-wrapper spans from x=0 (start of column 2)
-   to x=100vw (right‐side of page). Because .hero is a grid
-   with [480px 1fr], this means the wrapper is 100% of col 2.
-   ------------------------------------------------------- */
-.carousel-wrapper {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  width: calc(100% - 40px);
-  overflow: hidden;
-}
-
-/* Scrollable flex container inside the wrapper */
-.carousel {
-  display: flex;
-  overflow-x: auto; 
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding-top: 0;       /* no extra top/bottom padding needed */
-  padding-bottom: 10px; /* small bottom padding so shadow shows */
-  margin-left: 10px;    /* small indent so first item isn’t flush under left arrow */
-  margin-right: 10px;   /* small indent so last item isn’t flush under right arrow */
-}
-
-/* Hide native scrollbar */
-.carousel::-webkit-scrollbar {
-  display: none;
-}
-.carousel {
-  -ms-overflow-style: none; /* IE 10+ */
-  scrollbar-width: none;    /* Firefox */
-}
-
-/* Each carousel “slot” (item) */
-.carousel-item {
-  flex: 0 0 240px;           /* screenshot width = 240px; adjust if you want larger/smaller */
-  scroll-snap-align: center; /* snap into center when scrolling stops */
-  margin: 0 10px;            /* 10px left + right margin */
-}
-
-.carousel-item img {
-  display: block;
-  width: 100%;  
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-}
-
-/* Fade overlay: makes the next screenshot “peek” fade into the background */
-.carousel-fade {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 80px;   /* peek width; adjust to see more/less of next slide */
-  height: 100%;
-  pointer-events: none; /* clicks pass through */
-  background: linear-gradient(
-    to right,
-    rgba(90, 62, 146, 0),
-    #5A3E92 80%
-  );
-  z-index: 1;
-}
-
-/* =======================================================
-   4) RESPONSIVE ADJUSTMENTS
-   ======================================================= */
-@media (max-width: 768px) {
-  .hero {
-    display: block; /* stack columns */
-  }
-  .hero-text {
-    padding: 20px;
-  }
-  .hero-carousel {
-    margin-top: 20px;
-    width: 100vw; /* full width on mobile */
-    height: auto;
-  }
-  .carousel-wrapper {
-    left: 0;
-    width: 100vw;
-  }
-  .carousel-item {
-    flex: 0 0 180px; /* shrink each slide */
-    margin: 0 8px;
-  }
-  .carousel-fade {
-    width: 60px;     /* shrink fade width */
-  }
-  .carousel-arrow--left {
-    left: 10px;     /* small inset from screen’s left edge */
-  }
-  .carousel-arrow--right {
-    right: 10px;    /* small inset from screen’s right edge */
-  }
-}
-
-@media (max-width: 480px) {
-  .carousel-item {
-    flex: 0 0 140px;  /* smaller slides on phones */
-    margin: 0 6px;
-  }
-  .carousel-fade {
-    width: 50px;      /* smaller fade */
-  }
-  .carousel-arrow--left,
-  .carousel-arrow--right {
-    width: 32px;
-    height: 32px;
-    font-size: 1.2rem;
-  }
-}
-
-/* =======================================================
-   5) FOOTER
-   ======================================================= */
-footer {
-  background-color: #5A3E92;
-  padding: 20px 0;
-  text-align: center;
-  font-size: 0.9rem;
-}
-
-footer a {
-  color: #fff;
-  text-decoration: none;
-  margin: 0 15px;
-  transition: color 0.2s ease;
-}
-
-footer a:hover {
-  text-decoration: underline;
-  color: #ddd;
-}
-
-footer p {
-  color: #fff;
-  margin-top: 10px;
-}
-
-/* =======================================================
-   6) PRIVACY‐PAGE (RIGHT‐COLUMN) STYLES
-   ======================================================= */
-
-/* Ensure GeoSans Light is applied to all elements here */
-.privacy-column,
-.privacy-content,
-.privacy-content h2,
-.privacy-content h3,
-.privacy-content p,
-.privacy-content ul,
-.privacy-content li,
-.privacy-content a,
-.privacy-content .subheading {
-  font-family: 'GeoSans Light', sans-serif;
-}
-
-/* Container that centers the white “card” in the right column */
+/* ---------- RIGHT COLUMN (privacy content) ---------- */
 .privacy-column {
   width: 100%;
   height: 100%;
@@ -300,12 +123,12 @@ footer p {
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background-color: #fff;
+  background-color: #fff; /* white “card” background */
 }
 
-/* White “card” with rounded corners and subtle shadow */
+/* The scrollable “card” */
 .privacy-content {
-  max-width: 700px;
+  max-width: 680px;         /* match left‐column max for symmetry */
   width: 100%;
   background-color: #fff;
   padding: 30px 25px;
@@ -313,17 +136,26 @@ footer p {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   color: #333;
   overflow-y: auto;
-  max-height: calc(100vh - 100px); /* leave space for hero and footer */
+  max-height: calc(100vh - 100px); /* leave space for hero/header and footer */
 }
 
-/* Main H2 headline within the card */
+/* GeoSans Light for all privacy text */
+.privacy-content,
+.privacy-content h2,
+.privacy-content h3,
+.privacy-content p,
+.privacy-content ul,
+.privacy-content li,
+.privacy-content a {
+  font-family: 'GeoSans Light', sans-serif;
+}
+
 .privacy-content h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
   color: #5A3E92;
 }
 
-/* Subheadings (H3) */
 .privacy-content h3 {
   font-size: 1.3rem;
   margin-top: 1.5rem;
@@ -331,7 +163,6 @@ footer p {
   color: #5A3E92;
 }
 
-/* Paragraphs and lists */
 .privacy-content p,
 .privacy-content ul {
   font-size: 1rem;
@@ -339,17 +170,14 @@ footer p {
   margin-bottom: 1rem;
 }
 
-/* Indented bullet lists */
 .privacy-content ul {
   padding-left: 1.2rem;
 }
 
-/* List item spacing */
 .privacy-content li {
   margin-bottom: 0.5rem;
 }
 
-/* Links in policy */
 .privacy-content a {
   color: #5A3E92;
   text-decoration: none;
@@ -362,15 +190,7 @@ footer p {
   border-color: #3f2b6b;
 }
 
-/* Subheading style under the hero title */
-.subheading {
-  font-size: 1rem;
-  color: #ddd;
-  margin-top: 0.25rem;
-  margin-bottom: 1.5rem;
-}
-
-/* Drop‐cap style for first paragraph */
+/* Drop‐cap for first paragraph */
 .dropcap {
   float: left;
   font-size: 3rem;
@@ -380,7 +200,9 @@ footer p {
   font-weight: 300;
 }
 
-/* Tweak footer to match index style exactly */
+/* =======================================================
+   5) FOOTER (same on both pages)
+   ======================================================= */
 footer {
   background-color: #5A3E92;
   padding: 20px 0;
@@ -402,4 +224,48 @@ footer a:hover {
 footer p {
   color: #fff;
   margin-top: 10px;
+}
+
+/* =======================================================
+   6) RESPONSIVE TWEAKS
+   ======================================================= */
+@media (max-width: 768px) {
+  /* For index page: stack nothing—hero-simple already centered */
+  /* For privacy page: stack hero columns */
+  .hero {
+    display: block;
+  }
+  .hero-text {
+    padding: 20px;
+  }
+  .privacy-column {
+    margin-top: 20px;
+    width: 100vw;
+    height: auto;
+  }
+  .privacy-content {
+    max-height: none;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Index page: shrink text */
+  .hero-wordmark {
+    font-size: 3rem;
+  }
+  .hero-subtitle {
+    font-size: 1.25rem;
+  }
+  /* Privacy page: shrink card’s padding and headings */
+  .privacy-content {
+    padding: 15px;
+    border-radius: 6px;
+  }
+  .privacy-content h2 {
+    font-size: 1.75rem;
+  }
+  .privacy-content h3 {
+    font-size: 1.1rem;
+  }
 }

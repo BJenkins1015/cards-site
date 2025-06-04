@@ -269,3 +269,161 @@ footer p {
     font-size: 1.1rem;
   }
 }
+
+/* =======================================================
+   CONTACT PAGE (right‐column) STYLES
+   ======================================================= */
+
+/* Container for the right column on the Contact page */
+.contact-column {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff; /* white background behind the form card */
+}
+
+/* The white “card” that holds the form */
+.contact-content {
+  max-width: 680px;          /* same max width as privacy card for symmetry */
+  width: 100%;
+  background-color: #fff;
+  padding: 30px 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  color: #333;
+  font-family: 'GeoSans Light', sans-serif;
+  overflow-y: auto;
+  max-height: calc(100vh - 100px); /* leave space for hero + footer */
+}
+
+/* Form styles */
+.contact-content form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label styles */
+.contact-content label {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  color: #5A3E92; /* purple accent */
+}
+
+/* Text inputs */
+.contact-content input[type="text"],
+.contact-content input[type="email"],
+.contact-content textarea {
+  font-family: 'GeoSans Light', sans-serif;
+  font-size: 1rem;
+  padding: 10px 12px;
+  margin-bottom: 1.25rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+/* On focus, change border to purple */
+.contact-content input[type="text"]:focus,
+.contact-content input[type="email"]:focus,
+.contact-content textarea:focus {
+  border-color: #5A3E92;
+}
+
+/* Textarea specifics */
+.contact-content textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Submit button */
+.contact-content button[type="submit"] {
+  align-self: flex-start;
+  font-family: 'GeoSans Light', sans-serif;
+  font-size: 1rem;
+  background-color: #5A3E92;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Button hover state */
+.contact-content button[type="submit"]:hover {
+  background-color: #482f6f; /* slightly darker purple */
+}
+
+/* Small note below the form */
+.contact-content .small-note {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Links inside the small note */
+.contact-content .small-note a {
+  color: #5A3E92;
+  text-decoration: none;
+  border-bottom: 1px solid #5A3E92;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.contact-content .small-note a:hover {
+  color: #3f2b6b;
+  border-color: #3f2b6b;
+}
+
+/* =======================================================
+   RESPONSIVE TWEAKS FOR CONTACT PAGE
+   ======================================================= */
+@media (max-width: 768px) {
+  .hero {
+    display: block; /* stack hero-text above contact-content */
+  }
+  .hero-text {
+    padding: 20px;
+  }
+  .contact-column {
+    margin-top: 20px;
+    width: 100vw;
+    height: auto;
+  }
+  .contact-content {
+    max-height: none;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-text h1 {
+    font-size: 3rem;
+  }
+  .subheading {
+    font-size: 1rem;
+  }
+  .contact-content {
+    padding: 15px;
+    border-radius: 6px;
+  }
+  .contact-content label {
+    font-size: 0.95rem;
+  }
+  .contact-content input[type="text"],
+  .contact-content input[type="email"],
+  .contact-content textarea {
+    font-size: 0.95rem;
+    padding: 8px 10px;
+  }
+  .contact-content button[type="submit"] {
+    font-size: 0.95rem;
+    padding: 10px 20px;
+  }
+  .contact-content textarea {
+    min-height: 100px;
+  }
+}
